@@ -1,0 +1,19 @@
+{
+  "name": "woodlot",
+  "version": "1.0.0",
+  "description": "An ExpressJS HTTP logging middleware that provides JSON output and asynchronous events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adpushup/woodlot.git"
+  },
+  "author": "Arun Michael Dsouza <amdsouza92@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adpushup/woodlot/issues"
+  },
+  "homepage": "https://github.com/adpushup/woodlot#readme"
+}
