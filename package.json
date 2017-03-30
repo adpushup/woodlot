@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/adpushup/woodlot/issues"
   },
-  "homepage": "https://github.com/adpushup/woodlot#readme"
+  "homepage": "https://github.com/adpushup/woodlot#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "mkdirp": "^0.5.1"
+  }
 }
