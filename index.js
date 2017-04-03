@@ -45,7 +45,7 @@ function woodlot(options) {
 };
 
 module.exports = {
-    woodlot: woodlot,
-    woodlotEvents: woodlotEvents
+    middlewareLogger: woodlot,
+    events: woodlotEvents
 };
 
