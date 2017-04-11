@@ -17,7 +17,7 @@ function woodlot(config) {
     var routeWhitelist = config.routeWhitelist;
     
     config.logToConsole = ('stdOut' in config) ? config.stdOut : true;
-    config.logHeaders = ('headers' in config.format.options) ? config.format.options.headers : true;
+    config.logHeaders = (config.format && 'options' in config.format && 'headers' in config.format.options) ? config.format.options.headers : true;
     
     return function(req, res, next) {
 
