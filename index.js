@@ -16,19 +16,19 @@ function woodlot(options) {
 
     var stream = options.stream,
         logToStdOut = options.stdOut,
-        logFor = options.logFor,
+        routeWhitelist = options.routeWhitelist,
         logToConsole = ('stdOut' in options) ? logToStdOut : true;
     
     options.logToConsole = logToConsole;
 
     return function(req, res, next) {
 
-        // Create log entry for all valid log routes present in 'logFor' options
-        if(typeof logFor === 'object' && logFor.length) {
+        // Create log entry for all valid routes present in 'routeWhitelist' option
+        if(typeof routeWhitelist === 'object' && routeWhitelist.length) {
             var validLogRoute = null;
 
-            for(var i = 0; i < logFor.length; i ++) {
-                validLogRoute = req.url.indexOf(logFor[i]) !== -1;   
+            for(var i = 0; i < routeWhitelist.length; i ++) {
+                validLogRoute = req.url.indexOf(routeWhitelist[i]) !== -1;   
             }
 
             if(validLogRoute) {
