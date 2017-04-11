@@ -15,12 +15,10 @@ function woodlot(options) {
     }
 
     var stream = options.stream,
-        logToStdOut = options.stdOut,
-        routeWhitelist = options.routeWhitelist,
-        logToConsole = ('stdOut' in options) ? logToStdOut : true;
+        routeWhitelist = options.routeWhitelist;
+        options.logToConsole = ('stdOut' in options) ? options.stdOut : true;
+        options.logHeaders = ('headers' in options) ? options.headers : true;
     
-    options.logToConsole = logToConsole;
-
     return function(req, res, next) {
 
         // Create log entry for all valid routes present in 'routeWhitelist' option
