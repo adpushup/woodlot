@@ -6,18 +6,18 @@ var woodlotEvents = require('./lib/events').woodlotEvents,
     woodlotInit = require('./lib/initialiser');
 
 // Woodlot entry
-function woodlot(options) {
-    if(!options || !options.streams) {
+function woodlot(config) {
+    if(!config || !config.streams) {
         console.log('Please provide a valid stream value for the logger to start logging.');
         return function(req, res, next) { 
             next(); 
         }
     }
 
-    var routeWhitelist = options.routeWhitelist;
+    var routeWhitelist = config.routeWhitelist;
     
-    options.logToConsole = ('stdOut' in options) ? options.stdOut : true;
-    options.logHeaders = ('headers' in options) ? options.headers : true;
+    config.logToConsole = ('stdOut' in config) ? config.stdOut : true;
+    config.logHeaders = ('headers' in config) ? config.headers : true;
     
     return function(req, res, next) {
 
@@ -30,14 +30,14 @@ function woodlot(options) {
             }
 
             if(validLogRoute) {
-                return woodlotInit(req, res, next, options);
+                return woodlotInit(req, res, next, config);
             } else {
                 next();
             }
         }
         // Else create log entry for all routes
         else {
-            return woodlotInit(req, res, next, options);
+            return woodlotInit(req, res, next, config);
         }
     }
 };
