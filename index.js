@@ -7,17 +7,17 @@ var woodlotEvents = require('./lib/events').woodlotEvents,
 
 // Woodlot entry
 function woodlot(options) {
-    if(!options || !options.stream) {
+    if(!options || !options.streams) {
         console.log('Please provide a valid stream value for the logger to start logging.');
         return function(req, res, next) { 
             next(); 
         }
     }
 
-    var stream = options.stream,
-        routeWhitelist = options.routeWhitelist;
-        options.logToConsole = ('stdOut' in options) ? options.stdOut : true;
-        options.logHeaders = ('headers' in options) ? options.headers : true;
+    var routeWhitelist = options.routeWhitelist;
+    
+    options.logToConsole = ('stdOut' in options) ? options.stdOut : true;
+    options.logHeaders = ('headers' in options) ? options.headers : true;
     
     return function(req, res, next) {
 
