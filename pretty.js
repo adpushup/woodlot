@@ -28,9 +28,23 @@ var statusCodeIndex = testjson.match(/"statusCode": \d+/).index + 14;
 
 var color = '\x1b[34m200\x1b[0m';
 var a = testjson.replace(/"statusCode": \d+/, '"statusCode": '+color);
-console.log(a);
+//console.log(a);
 
 //console.log("{'a':'\u001b[33mtest\u001b[0m'}");
+
+
+
+
+
+
+
+//-------- apcahe ---
+var log = '::1 - - [13/Apr/2017:21:20:59 +0000] "GET / HTTP/1.1" 200 4';
+var lin = log.match(/ \d{3}/).index;
+var status = log.substr(lin, 4);
+var color = '\x1b[34m'+status+'\x1b[0m';
+console.log(log.replace(/ \d{3}/, color));
+console.log(log);
 
 
 
