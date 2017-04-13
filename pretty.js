@@ -24,10 +24,11 @@ var testjson = JSON.stringify({"responseTime":"13ms","method":"GET","url":"/","i
 //console.log(testjson.substr(testjson.search('"statusCode"') + 14, 3));
 
 var statusCodeIndex = testjson.match(/"statusCode": \d+/).index + 14;
-console.log(testjson.substr(statusCodeIndex, 3));
+//console.log(testjson.substr(statusCodeIndex, 3));
 
-//var a = testjson.replace(/"statusCode": \d+/, '"statusCode": \x1b[33m200\x1b[0m');
-//console.log(a);
+var color = '\x1b[34m200\x1b[0m';
+var a = testjson.replace(/"statusCode": \d+/, '"statusCode": '+color);
+console.log(a);
 
 //console.log("{'a':'\u001b[33mtest\u001b[0m'}");
 
