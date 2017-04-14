@@ -5,7 +5,8 @@
 var woodlotEvents = require('./lib/events').woodlotEvents,
     woodlotInit = require('./lib/initialiser'),
     foregroundYellow = require('./lib/stdoutColors').foregroundYellow,
-    underlineText = require('./lib/stdoutColors').underlineText;
+    underlineText = require('./lib/stdoutColors').underlineText,
+    customLogger = require('./lib/customLogger');
 
 // Woodlot entry
 function woodlot(config) {
@@ -46,6 +47,7 @@ function woodlot(config) {
 
 module.exports = {
     middlewareLogger: woodlot,
-    events: woodlotEvents
+    events: woodlotEvents,
+    customLogger: customLogger
 };
 
