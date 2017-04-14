@@ -26,11 +26,11 @@ function woodlot(config) {
 
         // Create log entry for all valid routes present in 'routeWhitelist' option
         if(typeof routeWhitelist === 'object' && routeWhitelist.length) {
-            var validLogRoute = null;
-
-            for(var i = 0; i < routeWhitelist.length; i ++) {
-                validLogRoute = req.url.indexOf(routeWhitelist[i]) !== -1;   
-            }
+            var foundRoute = routeWhitelist.find(function(element) {
+                //return req.url.indexOf(element) !== -1;
+                return element === req.url;
+            }),
+                validLogRoute = foundRoute ? foundRoute : null;
 
             if(validLogRoute) {
                 return woodlotInit(req, res, next, config);
