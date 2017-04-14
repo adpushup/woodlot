@@ -3,12 +3,14 @@
 'use strict';
 
 var woodlotEvents = require('./lib/events').woodlotEvents,
-    woodlotInit = require('./lib/initialiser');
+    woodlotInit = require('./lib/initialiser'),
+    foregroundYellow = require('./lib/stdoutColors').foregroundYellow,
+    underlineText = require('./lib/stdoutColors').underlineText;
 
 // Woodlot entry
 function woodlot(config) {
     if(!config || !config.streams) {
-        console.log('Please provide a valid stream value for the logger to start logging.');
+        console.log(foregroundYellow('Woodlot warning: Please provide at least one valid file stream to start logging. More info here - ' + underlineText('https://github.com/adpushup/woodlot')));
         return function(req, res, next) { 
             next(); 
         }
