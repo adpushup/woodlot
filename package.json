@@ -1,6 +1,6 @@
 {
   "name": "woodlot",
-  "version": "0.5.8",
+  "version": "0.7.12",
   "description": "An ExpressJS HTTP logging middleware that provides JSON output and asynchronous events.",
   "main": "index.js",
   "scripts": {
