@@ -8,7 +8,7 @@ An ExpressJS HTTP logging middleware that provides JSON output and asynchronous 
 ```javascript
 app.use(woodlot({
     streams: ['./logs/api-logs.log'],
-    stdOut: false,
+    stdout: false,
 	format: {
         type: 'json',
         options: {
@@ -27,7 +27,7 @@ app.use(woodlot({
 ```javascript
 app.use(woodlot({
     streams: ['./logs/all-logs.log'],
-    stdOut: true,
+    stdout: true,
 	format: {
         type: 'common',
         options: {
