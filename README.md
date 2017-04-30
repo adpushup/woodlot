@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/adpushup/woodlot/master/icon.png" width="250" height="auto" alt="woodlot icon"/>
+
 # woodlot [![npm version](https://badge.fury.io/js/woodlot.svg)](https://badge.fury.io/js/woodlot) [![NPM Downloads](https://img.shields.io/npm/dm/woodlot.svg?style=flat-square)](https://www.npmjs.com/package/woodlot)
 
 A NodeJS logging utility that supports ExpressJS, provides JSON output and an easy to use events API.
@@ -195,13 +197,13 @@ woodlot.error('Server error occurred');
 #### Options
 
 #### ``streams {array} | required``
-This is a required option that specifies the file stream endpoints where the generated logs will be saved. You can specify multiple streams using this option.
+See [above](https://github.com/adpushup/woodlot#streams-array--required).
 
 #### ``stdout {boolean} | Default: true``
-It specifies whether the generated log entry should be logged to the standard output stream i.e. ``process.stdout`` or not.
+See [above](https://github.com/adpushup/woodlot#stdout-boolean--default-true).
 
 #### ``format {object}``
-This option sets the log output format and other settings related to that particular format.
+See [above](https://github.com/adpushup/woodlot#format-object).
 
 ##### ``type {string} | Default: 'json'``
 The default output format is ``json``. The ``customLogger`` supports one more format - ``text``.
