@@ -254,12 +254,12 @@ The returned log entry from each event will be of the same format as the one def
 
 ### middlewareLogger events
 
-#### ``log``
+#### ``reqLog``
 
 This event is fired whenever a log entry is generated.
 
 ```javascript
-woodlotEvents.on('log', function(log) {
+woodlotEvents.on('reqLog', function(log) {
     console.log('The following log entry was added - \n' + log);
 });
 ```
@@ -280,14 +280,14 @@ woodlotEvents.on('403', function(log) {
 });
 ```
 
-### ``error``
+### ``reqErr``
 
 This event is fired whenever an error is returned from the request. 
 
 All requests returning a status code of ``>=400`` are considered to be errored. Please refer to the HTTP status codes [guide](http://www.restapitutorial.com/httpstatuscodes.html) for more info.
 
 ```javascript
-woodlotEvents.on('error', function(log) {
+woodlotEvents.on('reqErr', function(log) {
     console.log('Errored!')
 });
 ```
