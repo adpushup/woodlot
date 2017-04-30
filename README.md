@@ -292,6 +292,48 @@ woodlotEvents.on('reqErr', function(log) {
 });
 ```
 
+### customLogger events
+
+#### ``info``
+
+This event is fired whenever an ``info`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('info', function(log) {
+    console.log('Info log - ' + log);
+});
+```
+
+#### ``debug``
+
+This event is fired whenever a ``debug`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('debug', function(log) {
+    console.log('Debug log - ' + log);
+});
+```
+
+#### ``warn``
+
+This event is fired whenever a ``warn`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('warn', function(log) {
+    console.log('Warn log - ' + log);
+});
+```
+
+#### ``error``
+
+This event is fired whenever an ``error`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('error', function(log) {
+    console.log('Error log - ' + log);
+});
+```
+
 <br/>
 
 ## License 
