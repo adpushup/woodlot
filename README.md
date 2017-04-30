@@ -1,39 +1,358 @@
-# woodlot
-An ExpressJS HTTP logging middleware that provides JSON output and asynchronous events.
+# woodlot [![npm version](https://badge.fury.io/js/woodlot.svg)](https://badge.fury.io/js/woodlot) [![NPM Downloads](https://img.shields.io/npm/dm/woodlot.svg?style=flat-square)](https://www.npmjs.com/package/woodlot)
+
+A NodeJS logging utility that supports ExpressJS, provides JSON output and an easy to use events API.
+
+> * Works as an HTTP logging middleware with ``ExpressJS``
+> * Support for custom logging with different logging levels
+> * Provides log output in ``json`` format with request body/query params, headers and cookies
+> * Support for Apache ``common`` and ``combined`` log formats as output
+> * Multiple file stream support for log aggregation
+> * Simple to use events API
+> * Requires node >= ``0.10``
+
+<br/>
+
+## Installation
+
+#### Using ``npm``
+
+```javascript
+npm install woodlot --save
+```
+
+#### Using ``yarn``
+
+```javascript
+yarn add woodlot
+```
+
+<br/>
 
 ## Usage 
 
-### JSON format (default)
+### As an ExpressJS middleware
+
+The woodlot ``middlewareLogger`` can be hooked into the existing ``ExpressJS`` middleware chain and can be used to log all ``HTTP`` requests.
+
+Example - 
 
 ```javascript
+var express = require('express');
+var app = express();
+var woodlot = require('woddlot').middlewareLogger;
+
 app.use(woodlot({
-    streams: ['./logs/api-logs.log'],
+    streams: ['./logs/app.log'],
     stdout: false,
-	format: {
+    routeWhitelist: ['/api', '/dashboard'],
+    format: {
         type: 'json',
         options: {
-            spacing: '\t',
-            headers: false,
             cookies: true,
+            headers: false,
+            spacing: 8,
             separator: '\n'
         }
-	},
-    routeWhitelist: ['/api']
+    }
 }));
 ```
 
-### APACHE format (common/combined)
+#### Options
+
+#### ``streams {array} | required``
+This is a required option that specifies the file stream endpoints where the generated logs will be saved. You can specify multiple streams using this option.
+
+#### ``stdout {boolean} | Default: true``
+It specifies whether the generated log entry should be logged to the standard output stream i.e. ``process.stdout`` or not.
+
+#### ``routeWhitelist {array}``
+This option is used with the woodlot ``middlewareLogger``. It specifies all the routes for which logging is to be enabled. By default, log entry is generated for all the routes.
+
+#### ``format {object}``
+This option sets the log output format and other settings related to that particular format.
+
+##### ``type {string} | Default: 'json'``
+The default output format is ``json``. The ``middlewareLogger`` supports two more formats - [common](http://httpd.apache.org/docs/current/logs.html#common) and [combined](http://httpd.apache.org/docs/current/logs.html#combined), which are Apache's access log formats. 
+
+The generated output log for each format is as follows - 
+
+##### json
 
 ```javascript
-app.use(woodlot({
-    streams: ['./logs/all-logs.log'],
-    stdout: true,
-	format: {
-        type: 'common',
+{
+    "responseTime": "4ms",
+    "method": "GET",
+    "url": "/",
+    "ip": "127.0.01",
+    "body": {},
+    "params": {},
+    "query": {},
+    "httpVersion": "1.1",
+    "statusCode": 200,
+    "timeStamp": "23/Apr/2017:20:46:01 +0000",
+    "contentType": "text/html; charset=utf-8",
+    "contentLength": "4",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+    "referrer": null,
+    "headers": {
+        "host": "localhost:8000",
+        "connection": "keep-alive",
+        "accept-encoding": "gzip, deflate, sdch, br",
+        "accept-language": "en-US,en;q=0.8,la;q=0.6"
+    },
+    "cookies": {
+        "userId": "zasd-167279192-asknbke-0684"
+    }
+}
+```
+
+> ``json`` format supports logging of ``body`` params and ``cookies``. If you wish to log them, please make sure to enable the ``bodyParser`` and ``cookieParser`` middlewares before woodlot.
+
+##### common
+
+```javascript
+127.0.01 - - [23/Apr/2017:20:47:28 +0000] "GET / HTTP/1.1" 200 4
+```
+
+##### combined
+
+```javascript
+127.0.01 - - [23/Apr/2017:20:48:10 +0000] "GET / HTTP/1.1" 200 4 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+```
+
+> The timestamp generated in all logs is in ``ISO`` format.
+
+#### ``options {object}``
+
+##### ``cookies {boolean} | Default: false``
+This option is to be used with the ``json`` format. It specifies whether you want to log request ``cookies`` or not.
+
+> Please make sure that the ``cookieParser`` middleware is enabled before woodlot, if this option is to be used.
+
+##### ``headers {boolean} | Default: true``
+This option is to be used with the ``json`` format. It specifies whether you want to log request ``headers`` or not.
+
+##### ``spacing {string|number} | Default: \t``
+This option is to be used with the ``json`` format. It specifies the indentation for the generated log entry. You can specify a tab ``\t`` or numeric values ``4``, ``8`` for spaces.
+ 
+##### ``separator {string} | Default: \n``
+This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character ``\n``, a ``whitespace`` or any other valid character.
+
+<br/>
+
+### Custom logging
+
+The woodlot ``customLogger`` can be used to perform custom logging with different logging levels.
+
+Example - 
+
+```javascript
+var express = require('express');
+var app = express();
+var woodlot = require('woddlot').customLogger;
+
+woodlot.config({
+    streams: ['./logs/custom.log'],
+    stdout: false,
+    format: {
+        type: 'json',
         options: {
+            spacing: 8,
             separator: '\n'
         }
-	},
-    routeWhitelist: ['/']
-}));
+    }
+});
+
+app.get('/', function(req, res) {
+    var id = 4533;
+    woodlot.info('User id ' + id + ' accessed');
+    return res.status(200).send({ userId: id });
+});
 ```
+
+#### Log levels
+
+##### info
+```javascript
+woodlot.info('Data sent successfully');
+```
+
+##### debug
+```javascript
+woodlot.debug('Debugging main function');
+```
+
+##### warn
+```javascript
+woodlot.warn('User Id is required');
+```
+
+##### error
+```javascript
+woodlot.error('Server error occurred');
+```
+
+#### Options
+
+#### ``streams {array} | required``
+This is a required option that specifies the file stream endpoints where the generated logs will be saved. You can specify multiple streams using this option.
+
+#### ``stdout {boolean} | Default: true``
+It specifies whether the generated log entry should be logged to the standard output stream i.e. ``process.stdout`` or not.
+
+#### ``format {object}``
+This option sets the log output format and other settings related to that particular format.
+
+##### ``type {string} | Default: 'json'``
+The default output format is ``json``. The ``customLogger`` supports one more format - ``text``.
+
+The generated output log for each format is as follows - 
+
+##### json
+
+```javascript
+{
+    "timeStamp": "23/Apr/2017:17:02:33 +0000",
+    "message": "Data sent successfully",
+    "level": "INFO"
+}
+```
+
+##### text
+
+```javascript
+INFO [23/Apr/2017:17:02:33 +0000]: "Data sent successfully"
+```
+
+#### ``options {object}``
+
+##### ``spacing {string|number} | Default: \t``
+This option is to be used with the ``json`` format. It specifies the indentation for the generated log entry. You can specify a tab ``\t`` or numeric values ``4``, ``8`` for spaces.
+ 
+##### ``separator {string} | Default: \n``
+This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character ``\n``, a ``whitespace`` or any other valid character.
+
+<br/>
+
+## Events
+
+Woodlot emits events at various operations that can be used to track critical data.
+
+Example - 
+
+```javascript
+var woodlotEvents = require('woodlot').events;
+
+woodlotEvents.on('log', function(log) {
+     console.log('New log generated');
+});
+```
+
+The returned log entry from each event will be of the same format as the one defined in the woodlot configuration.
+
+### middlewareLogger events
+
+#### ``log``
+
+This event is fired whenever a log entry is generated.
+
+```javascript
+woodlotEvents.on('log', function(log) {
+    console.log('The following log entry was added - \n' + log);
+});
+```
+
+#### ``:statusCode``
+
+This event is fired whenever a specific status code is returned from the request.
+
+```javascript
+woodlotEvents.on('200', function(log) {
+    console.log('Success!')
+});
+```
+
+```javascript
+woodlotEvents.on('403', function(log) {
+    console.log('Request forbidden!')
+});
+```
+
+### ``error``
+
+This event is fired whenever an error is returned from the request. 
+
+All requests returning a status code of ``>=400`` are considered to be errored. Please refer to the HTTP status codes [guide](http://www.restapitutorial.com/httpstatuscodes.html) for more info.
+
+```javascript
+woodlotEvents.on('error', function(log) {
+    console.log('Errored!')
+});
+```
+
+<br/>
+
+## License 
+
+MIT License
+
+Copyright (c) 2017 AdPushup Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
