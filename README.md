@@ -245,7 +245,7 @@ Example -
 ```javascript
 var woodlotEvents = require('woodlot').events;
 
-woodlotEvents.on('log', function(log) {
+woodlotEvents.on('reqLog', function(log) {
      console.log('New log generated');
 });
 ```
@@ -254,12 +254,12 @@ The returned log entry from each event will be of the same format as the one def
 
 ### middlewareLogger events
 
-#### ``log``
+#### ``reqLog``
 
 This event is fired whenever a log entry is generated.
 
 ```javascript
-woodlotEvents.on('log', function(log) {
+woodlotEvents.on('reqLog', function(log) {
     console.log('The following log entry was added - \n' + log);
 });
 ```
@@ -280,15 +280,57 @@ woodlotEvents.on('403', function(log) {
 });
 ```
 
-### ``error``
+### ``reqErr``
 
 This event is fired whenever an error is returned from the request. 
 
 All requests returning a status code of ``>=400`` are considered to be errored. Please refer to the HTTP status codes [guide](http://www.restapitutorial.com/httpstatuscodes.html) for more info.
 
 ```javascript
-woodlotEvents.on('error', function(log) {
+woodlotEvents.on('reqErr', function(log) {
     console.log('Errored!')
+});
+```
+
+### customLogger events
+
+#### ``info``
+
+This event is fired whenever an ``info`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('info', function(log) {
+    console.log('Info log - ' + log);
+});
+```
+
+#### ``debug``
+
+This event is fired whenever a ``debug`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('debug', function(log) {
+    console.log('Debug log - ' + log);
+});
+```
+
+#### ``warn``
+
+This event is fired whenever a ``warn`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('warn', function(log) {
+    console.log('Warn log - ' + log);
+});
+```
+
+#### ``error``
+
+This event is fired whenever an ``error`` level log entry is generated.
+
+```javascript
+woodlotEvents.on('error', function(log) {
+    console.log('Error log - ' + log);
 });
 ```
 
