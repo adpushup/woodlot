@@ -189,9 +189,9 @@ woodlot.debug('Debugging main function');
 woodlot.warn('User Id is required');
 ```
 
-##### error
+##### err
 ```javascript
-woodlot.error('Server error occurred');
+woodlot.err('Server error occurred');
 ```
 
 #### Options
@@ -324,12 +324,12 @@ woodlotEvents.on('warn', function(log) {
 });
 ```
 
-#### ``error``
+#### ``err``
 
-This event is fired whenever an ``error`` level log entry is generated.
+This event is fired whenever an ``err`` level log entry is generated.
 
 ```javascript
-woodlotEvents.on('error', function(log) {
+woodlotEvents.on('err', function(log) {
     console.log('Error log - ' + log);
 });
 ```
