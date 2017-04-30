@@ -9,7 +9,7 @@ var woodlotEvents = require('./lib/events').woodlotEvents,
     customLogger = require('./lib/customLogger');
 
 // Woodlot entry
-function woodlot(config) {
+function middlewareLogger(config) {
     if(!config || !config.streams) {
         console.log(foregroundYellow('Woodlot warning: Please provide at least one valid file stream to start logging. More info here - ' + underlineText('https://github.com/adpushup/woodlot')));
         return function(req, res, next) { 
@@ -46,7 +46,7 @@ function woodlot(config) {
 };
 
 module.exports = {
-    middlewareLogger: woodlot,
+    middlewareLogger: middlewareLogger,
     events: woodlotEvents,
     customLogger: customLogger
 };
