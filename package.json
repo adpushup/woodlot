@@ -1,6 +1,6 @@
 {
   "name": "woodlot",
-  "version": "1.2.2",
+  "version": "1.3.1",
   "description": "A NodeJS logging utility that supports ExpressJS, provides JSON output and an easy to use events API.",
   "main": "index.js",
   "scripts": {
