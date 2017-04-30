@@ -245,7 +245,7 @@ Example -
 ```javascript
 var woodlotEvents = require('woodlot').events;
 
-woodlotEvents.on('log', function(log) {
+woodlotEvents.on('reqLog', function(log) {
      console.log('New log generated');
 });
 ```
