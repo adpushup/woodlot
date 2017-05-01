@@ -4,14 +4,13 @@
 
 var woodlotEvents = require('./lib/events').woodlotEvents,
     woodlotInit = require('./lib/initialiser'),
-    foregroundYellow = require('./lib/stdoutColors').foregroundYellow,
-    underlineText = require('./lib/stdoutColors').underlineText,
+    stdoutFormatting = require('./lib/stdoutFormatting'),
     customLogger = require('./lib/customLogger');
 
 // Woodlot entry
 function middlewareLogger(config) {
     if(!config || !config.streams) {
-        console.log(foregroundYellow('Woodlot warning: Please provide at least one valid file stream to start logging. More info here - ' + underlineText('https://github.com/adpushup/woodlot')));
+        console.log(stdoutFormatting.foregroundYellow('Woodlot warning: Please provide at least one valid file stream to start logging. More info here - ' + stdoutFormatting.underlineText('https://github.com/adpushup/woodlot')));
         return function(req, res, next) { 
             next(); 
         }
