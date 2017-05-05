@@ -1,6 +1,6 @@
 {
   "name": "woodlot",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "A JSON logging utility that supports ExpressJS, provides multi-format output and an easy to use events API.",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "http-logging",
     "logger-middleware",
     "json-logger",
-    "express-logger"
+    "express-logger",
     "logger"
   ],
   "homepage": "https://github.com/adpushup/woodlot#readme",
