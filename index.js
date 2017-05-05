@@ -3,7 +3,7 @@
 'use strict';
 
 var woodlotEvents       =   require('./lib/events').woodlotEvents;
-var woodlotInit         =   require('./lib/initialiser');
+var woodlotInit         =   require('./lib/middlewareInitialiser');
 var stdoutFormatting    =   require('./lib/stdoutFormatting');
 var customLogger        =   require('./lib/customLogger');
 var routeHandler        =   require('./lib/routeHandler');
@@ -33,7 +33,6 @@ function middlewareLogger(config) {
 
         // Create log entry for all valid routes present in 'routes.whitelist' option in config
         if(typeof routeWhitelist === 'object' && routeWhitelist.length) {
-            // Check current route for whitelist settings
             if(routeHandler(routeWhitelist, config, req)) {
                 return woodlotInit(req, res, next, config);
             } else {
