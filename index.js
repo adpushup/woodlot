@@ -13,7 +13,7 @@ var utils               =   require('./lib/utils');
 function middlewareLogger(config) {
 
     // Check logger config for requried params
-    if(!config || !config.streams) {
+    if(!config || !config.streams || !config.streams.length) {
         // Log config warning to stdout 
         utils.logConfigWarning();
 
