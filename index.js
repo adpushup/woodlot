@@ -1,14 +1,18 @@
-// Woodlot logging middleware
+// Woodlot logging library main module
 
 'use strict';
 
-var woodlotEvents = require('./lib/events').woodlotEvents,
-    woodlotInit = require('./lib/initialiser'),
-    stdoutFormatting = require('./lib/stdoutFormatting'),
-    customLogger = require('./lib/customLogger');
+// Include required modules
+var woodlotEvents       =   require('./lib/events').woodlotEvents;
+var woodlotInit         =   require('./lib/initialiser');
+var stdoutFormatting    =   require('./lib/stdoutFormatting');
+var customLogger        =   require('./lib/customLogger');
+var routeHandler        =   require('./lib/routeHandler');
 
-// Woodlot entry
+// Woodlot logger middleware entry
 function middlewareLogger(config) {
+
+    // Check logger config for requried params
     if(!config || !config.streams) {
         console.log(stdoutFormatting.foregroundYellow('Woodlot warning: Please provide at least one valid file stream to start logging. More info here - ' + stdoutFormatting.underlineText('https://github.com/adpushup/woodlot')));
         return function(req, res, next) { 
@@ -16,7 +20,7 @@ function middlewareLogger(config) {
         }
     }
 
-    var routeWhitelist = config.routeWhitelist;
+    var routeWhitelist = (config.routes && config.routes.whitelist) ? config.routes.whitelist : [];
     
     config.logToConsole = ('stdout' in config) ? config.stdout : true;
     config.logHeaders = (config.format && 'options' in config.format && 'headers' in config.format.options) ? config.format.options.headers : true;
@@ -25,13 +29,7 @@ function middlewareLogger(config) {
 
         // Create log entry for all valid routes present in 'routeWhitelist' option
         if(typeof routeWhitelist === 'object' && routeWhitelist.length) {
-            var foundRoute = routeWhitelist.find(function(element) {
-                //return req.url.indexOf(element) !== -1;
-                return element === req.url;
-            }),
-                validLogRoute = foundRoute ? foundRoute : null;
-
-            if(validLogRoute) {
+            if(routeHandler(routeWhitelist, config, req)) {
                 return woodlotInit(req, res, next, config);
             } else {
                 next();
