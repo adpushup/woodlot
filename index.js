@@ -16,7 +16,7 @@ function middlewareLogger(config) {
         }
     }
 
-    var routeWhitelist = config.routeWhitelist;
+    var routeWhitelist = (config.routes && config.routes.whitelist) ? config.routes.whitelist : [];
     
     config.logToConsole = ('stdout' in config) ? config.stdout : true;
     config.logHeaders = (config.format && 'options' in config.format && 'headers' in config.format.options) ? config.format.options.headers : true;
@@ -25,11 +25,20 @@ function middlewareLogger(config) {
 
         // Create log entry for all valid routes present in 'routeWhitelist' option
         if(typeof routeWhitelist === 'object' && routeWhitelist.length) {
-            var foundRoute = routeWhitelist.find(function(element) {
-                //return req.url.indexOf(element) !== -1;
-                return element === req.url;
-            }),
-                validLogRoute = foundRoute ? foundRoute : null;
+            var foundRoute = null;
+
+            if(routeWhitelist && config.routes.strictChecking) {
+                foundRoute = routeWhitelist.find(function(route) {
+                    return route === req.url;
+                });
+            } else {
+                for(var i = 0; i < routeWhitelist.length; i ++) {
+                    foundRoute = req.url.indexOf(routeWhitelist[i]) !== -1;
+                    break;
+                }
+            }
+            
+            var validLogRoute = foundRoute ? foundRoute : null;
 
             if(validLogRoute) {
                 return woodlotInit(req, res, next, config);

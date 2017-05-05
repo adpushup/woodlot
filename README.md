@@ -2,7 +2,7 @@
 
 # woodlot [![npm version](https://badge.fury.io/js/woodlot.svg)](https://badge.fury.io/js/woodlot) [![NPM Downloads](https://img.shields.io/npm/dm/woodlot.svg?style=flat-square)](https://www.npmjs.com/package/woodlot)
 
-A NodeJS logging utility that supports ExpressJS, provides JSON output and an easy to use events API.
+A JSON logging utility that supports ExpressJS, provides multi-format output and an easy to use events API.
 
 > * Works as an HTTP logging middleware with ``ExpressJS``
 > * Support for custom logging with different logging levels
