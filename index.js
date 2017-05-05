@@ -5,7 +5,8 @@
 var woodlotEvents = require('./lib/events').woodlotEvents,
     woodlotInit = require('./lib/initialiser'),
     stdoutFormatting = require('./lib/stdoutFormatting'),
-    customLogger = require('./lib/customLogger');
+    customLogger = require('./lib/customLogger'),
+    routeHandler = require('./lib/routeHandler');
 
 // Woodlot entry
 function middlewareLogger(config) {
@@ -25,22 +26,7 @@ function middlewareLogger(config) {
 
         // Create log entry for all valid routes present in 'routeWhitelist' option
         if(typeof routeWhitelist === 'object' && routeWhitelist.length) {
-            var foundRoute = null;
-
-            if(routeWhitelist && config.routes.strictChecking) {
-                foundRoute = routeWhitelist.find(function(route) {
-                    return route === req.url;
-                });
-            } else {
-                for(var i = 0; i < routeWhitelist.length; i ++) {
-                    foundRoute = req.url.indexOf(routeWhitelist[i]) !== -1;
-                    break;
-                }
-            }
-            
-            var validLogRoute = foundRoute ? foundRoute : null;
-
-            if(validLogRoute) {
+            if(routeHandler(routeWhitelist, config, req)) {
                 return woodlotInit(req, res, next, config);
             } else {
                 next();
