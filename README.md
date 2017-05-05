@@ -46,7 +46,10 @@ var woodlot = require('woddlot').middlewareLogger;
 app.use(woodlot({
     streams: ['./logs/app.log'],
     stdout: false,
-    routeWhitelist: ['/api', '/dashboard'],
+    routes: {
+        whitelist: ['/api', '/dashboard'],
+        strictChecking: false
+    },
     format: {
         type: 'json',
         options: {
@@ -67,8 +70,25 @@ This is a required option that specifies the file stream endpoints where the gen
 #### ``stdout {boolean} | Default: true``
 It specifies whether the generated log entry should be logged to the standard output stream i.e. ``process.stdout`` or not.
 
-#### ``routeWhitelist {array}``
-This option is used with the woodlot ``middlewareLogger``. It specifies all the routes for which logging is to be enabled. By default, log entry is generated for all the routes.
+#### ``routes {object}``
+This option is used with the woodlot ``middlewareLogger``. It specifies all the routes (with checking mode) for which logging is to be enabled. By default, log entry is generated for all the routes.
+
+##### ``whitelist {array}``
+This option is used with the ``routes`` option to specify the route whitelist.
+
+##### ``strictChecking {boolean} | Default: false``
+This option is used with the ``routes`` option to specify the checking mode for the route whitelist.
+
+```javascript
+routes: {
+    whitelist: ['/api'],
+    strictChecking: false
+}
+```
+
+For the above example, setting it to ``false`` will enable logging for all routes that have ``api`` in them. Example - ``/api``, ``/api/getUser``, ``/api/getUser/all``, ``/userapi`` etc.
+
+Whereas, setting it to ``true`` will only enable logging for the ``/api`` route.
 
 #### ``format {object}``
 This option sets the log output format and other settings related to that particular format.
