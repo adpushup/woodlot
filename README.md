@@ -171,9 +171,9 @@ Example -
 ```javascript
 var express = require('express');
 var app = express();
-var woodlot = require('woddlot').customLogger;
+var woodlotCustomLogger = require('woddlot').customLogger;
 
-woodlot.config({
+var woodlot = new woodlotCustomLogger({
     streams: ['./logs/custom.log'],
     stdout: false,
     format: {
