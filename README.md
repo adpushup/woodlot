@@ -41,7 +41,7 @@ Example -
 ```javascript
 var express = require('express');
 var app = express();
-var woodlot = require('woddlot').middlewareLogger;
+var woodlot = require('woodlot').middlewareLogger;
 
 app.use(woodlot({
     streams: ['./logs/app.log'],
@@ -54,8 +54,8 @@ app.use(woodlot({
         type: 'json',
         options: {
             cookies: true,
-            headers: false,
-            spacing: 8,
+            headers: true,
+            spacing: 4,
             separator: '\n'
         }
     }
@@ -104,7 +104,7 @@ The generated output log for each format is as follows -
 {
     "responseTime": "4ms",
     "method": "GET",
-    "url": "/",
+    "url": "/api",
     "ip": "127.0.01",
     "body": {},
     "params": {},
@@ -133,13 +133,13 @@ The generated output log for each format is as follows -
 ##### common
 
 ```javascript
-127.0.01 - - [23/Apr/2017:20:47:28 +0000] "GET / HTTP/1.1" 200 4
+127.0.01 - - [23/Apr/2017:20:47:28 +0000] "GET /api HTTP/1.1" 200 4
 ```
 
 ##### combined
 
 ```javascript
-127.0.01 - - [23/Apr/2017:20:48:10 +0000] "GET / HTTP/1.1" 200 4 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
+127.0.01 - - [23/Apr/2017:20:48:10 +0000] "GET /api HTTP/1.1" 200 4 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
 ```
 
 > The timestamp generated in all logs is in ``ISO`` format.
@@ -171,7 +171,7 @@ Example -
 ```javascript
 var express = require('express');
 var app = express();
-var woodlotCustomLogger = require('woddlot').customLogger;
+var woodlotCustomLogger = require('woodlot').customLogger;
 
 var woodlot = new woodlotCustomLogger({
     streams: ['./logs/custom.log'],
@@ -179,7 +179,7 @@ var woodlot = new woodlotCustomLogger({
     format: {
         type: 'json',
         options: {
-            spacing: 8,
+            spacing: 4,
             separator: '\n'
         }
     }
@@ -217,13 +217,13 @@ woodlot.err('Server error occurred');
 #### Options
 
 #### ``streams {array} | required``
-See [above](https://github.com/adpushup/woodlot#streams-array--required).
+See [here](https://github.com/adpushup/woodlot#streams-array--required).
 
 #### ``stdout {boolean} | Default: true``
-See [above](https://github.com/adpushup/woodlot#stdout-boolean--default-true).
+See [here](https://github.com/adpushup/woodlot#stdout-boolean--default-true).
 
 #### ``format {object}``
-See [above](https://github.com/adpushup/woodlot#format-object).
+See [here](https://github.com/adpushup/woodlot#format-object).
 
 ##### ``type {string} | Default: 'json'``
 The default output format is ``json``. The ``customLogger`` supports one more format - ``text``.
