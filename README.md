@@ -50,6 +50,10 @@ app.use(woodlot({
         whitelist: ['/api', '/dashboard'],
         strictChecking: false
     },
+    userAnalytics: {
+        platform: true,
+        country: true
+    },
     format: {
         type: 'json',
         options: {
@@ -90,6 +94,30 @@ For the above example, setting it to ``false`` will enable logging for all route
 
 Whereas, setting it to ``true`` will only enable logging for the ``/api`` route.
 
+#### ``userAnalytics {object}``
+Use this option to add user details to your logs.
+
+##### ``platform {boolean} | Default: false``
+Use this option with `userAnalytics`, to specify whether to include user `platform` info in the logs or not i.e. `browser`, `browserVersion`, `os`, and `osVersion`.
+
+##### ``country {boolean} | Default: false``
+Use this option with `userAnalytics`, to specify whether to include user `country` info in the logs or not i.e. `name` and `isoCode`.
+
+The `userAnalytics` option will add the following info to your logs - 
+
+```javascript
+"userAnalytics": {
+    "browser": "Chrome",
+    "browserVersion": "60.0.3112.90",
+    "os": "Mac OS",
+    "osVersion": "10.11.6",
+    "country": {
+        "name": "India",
+        "isoCode": "IN"
+    }
+}
+```
+
 #### ``format {object}``
 This option sets the log output format and other settings related to that particular format.
 
@@ -116,6 +144,16 @@ The generated output log for each format is as follows -
     "contentLength": "4",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
     "referrer": null,
+    "userAnalytics": {
+        "browser": "Chrome",
+        "browserVersion": "60.0.3112.90",
+        "os": "Mac OS",
+        "osVersion": "10.11.6",
+        "country": {
+            "name": "India",
+            "isoCode": "IN"
+        }
+    },
     "headers": {
         "host": "localhost:8000",
         "connection": "keep-alive",
