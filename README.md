@@ -30,13 +30,13 @@ yarn add woodlot
 
 <br/>
 
-## Usage 
+## Usage
 
 ### As an ExpressJS middleware
 
 The woodlot ``middlewareLogger`` can be hooked into the existing ``ExpressJS`` middleware chain and can be used to log all ``HTTP`` requests.
 
-Example - 
+Example -
 
 ```javascript
 var express = require('express');
@@ -103,7 +103,7 @@ Use this option with `userAnalytics`, to specify whether to include user `platfo
 ##### ``country {boolean} | Default: false``
 Use this option with `userAnalytics`, to specify whether to include user `country` info in the logs or not i.e. `name` and `isoCode`.
 
-The `userAnalytics` option will add the following info to your logs - 
+The `userAnalytics` option will add the following info to your logs -
 
 ```javascript
 "userAnalytics": {
@@ -122,9 +122,9 @@ The `userAnalytics` option will add the following info to your logs -
 This option sets the log output format and other settings related to that particular format.
 
 ##### ``type {string} | Default: 'json'``
-The default output format is ``json``. The ``middlewareLogger`` supports two more formats - [common](http://httpd.apache.org/docs/current/logs.html#common) and [combined](http://httpd.apache.org/docs/current/logs.html#combined), which are Apache's access log formats. 
+The default output format is ``json``. The ``middlewareLogger`` supports two more formats - [common](http://httpd.apache.org/docs/current/logs.html#common) and [combined](http://httpd.apache.org/docs/current/logs.html#combined), which are Apache's access log formats.
 
-The generated output log for each format is as follows - 
+The generated output log for each format is as follows -
 
 ##### json
 
@@ -192,9 +192,14 @@ This option is to be used with the ``json`` format. It specifies whether you wan
 ##### ``headers {boolean} | Default: true``
 This option is to be used with the ``json`` format. It specifies whether you want to log request ``headers`` or not.
 
+##### ``compact {boolean} | Default: false``
+This option is to be used with the ``json`` format. It specifies whether you want to log json as one line compact string.
+
+**NOTE** ``spacing`` option will be ignored if this option is set to true.
+
 ##### ``spacing {string|number} | Default: \t``
 This option is to be used with the ``json`` format. It specifies the indentation for the generated log entry. You can specify a tab ``\t`` or numeric values ``4``, ``8`` for spaces.
- 
+
 ##### ``separator {string} | Default: \n``
 This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character ``\n``, a ``whitespace`` or any other valid character.
 
@@ -204,7 +209,7 @@ This option can be used with any of the supported formats. It specfies the separ
 
 The woodlot ``customLogger`` can be used to perform custom logging with different logging levels.
 
-Example - 
+Example -
 
 ```javascript
 var express = require('express');
@@ -266,7 +271,7 @@ See [here](https://github.com/adpushup/woodlot#format-object).
 ##### ``type {string} | Default: 'json'``
 The default output format is ``json``. The ``customLogger`` supports one more format - ``text``.
 
-The generated output log for each format is as follows - 
+The generated output log for each format is as follows -
 
 ##### json
 
@@ -286,9 +291,14 @@ INFO [23/Apr/2017:17:02:33 +0000]: "Data sent successfully"
 
 #### ``options {object}``
 
+##### ``compact {boolean} | Default: false``
+This option is to be used with the ``json`` format. It specifies whether you want to log json as one line compact string.
+
+**NOTE** ``spacing`` option will be ignored if this option is set to true.
+
 ##### ``spacing {string|number} | Default: \t``
 This option is to be used with the ``json`` format. It specifies the indentation for the generated log entry. You can specify a tab ``\t`` or numeric values ``4``, ``8`` for spaces.
- 
+
 ##### ``separator {string} | Default: \n``
 This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character ``\n``, a ``whitespace`` or any other valid character.
 
@@ -298,7 +308,7 @@ This option can be used with any of the supported formats. It specfies the separ
 
 Woodlot emits events at various operations that can be used to track critical data.
 
-Example - 
+Example -
 
 ```javascript
 var woodlotEvents = require('woodlot').events;
@@ -340,7 +350,7 @@ woodlotEvents.on('403', function(log) {
 
 ### ``reqErr``
 
-This event is fired whenever an error is returned from the request. 
+This event is fired whenever an error is returned from the request.
 
 All requests returning a status code of ``>=400`` are considered to be errored. Please refer to the HTTP status codes [guide](http://www.restapitutorial.com/httpstatuscodes.html) for more info.
 
@@ -399,7 +409,7 @@ woodlotEvents.on('err', function(log) {
 | [<img src="https://avatars3.githubusercontent.com/u/4924614" width="100px;"/><br /><sub><b>Arun Michael Dsouza</b></sub>](https://github.com/ArunMichaelDsouza)<br />| [<img src="https://avatars2.githubusercontent.com/u/10044846" width="100px;"/><br /><sub><b>Dhiraj Singh</b></sub>](https://github.com/DhirajAdPushup)<br />|
 | :---: | :---: |
 
-## License 
+## License
 
 MIT License
 
