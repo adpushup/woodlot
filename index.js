@@ -2,24 +2,24 @@
 
 'use strict';
 
-var woodlotEvents       =   require('./lib/events').woodlotEvents;
-var woodlotInit         =   require('./lib/middlewareInitialiser');
-var stdoutFormatting    =   require('./lib/stdoutFormatting');
-var customLogger        =   require('./lib/customLogger');
-var routeHandler        =   require('./lib/routeHandler');
-var utils               =   require('./lib/utils');
+var woodlotEvents = require('./lib/events').woodlotEvents;
+var woodlotInit = require('./lib/middlewareInitialiser');
+var stdoutFormatting = require('./lib/stdoutFormatting');
+var customLogger = require('./lib/customLogger');
+var routeHandler = require('./lib/routeHandler');
+var utils = require('./lib/utils');
 
 // Woodlot logger middleware entry
 function middlewareLogger(config) {
 
     // Check logger config for requried params
-    if(!config || !config.streams || !config.streams.length) {
+    if (!config || !config.streams || !config.streams.length) {
         // Log config warning to stdout 
         utils.logConfigWarning();
 
         // And continue express middleware chain execution
-        return function(req, res, next) { 
-            next(); 
+        return function (req, res, next) {
+            next();
         }
     }
 
@@ -27,13 +27,13 @@ function middlewareLogger(config) {
     var routeWhitelist = (config.routes && config.routes.whitelist) ? config.routes.whitelist : [];
     config.logToConsole = ('stdout' in config) ? config.stdout : true;
     config.logHeaders = (config.format && 'options' in config.format && 'headers' in config.format.options) ? config.format.options.headers : true;
-    
+
     // Standard middleware function signature 
-    return function(req, res, next) {
+    return function (req, res, next) {
 
         // Create log entry for all valid routes present in 'routes.whitelist' option in config
-        if(typeof routeWhitelist === 'object' && routeWhitelist.length) {
-            if(routeHandler(routeWhitelist, config, req)) {
+        if (typeof routeWhitelist === 'object' && routeWhitelist.length) {
+            if (routeHandler(routeWhitelist, config, req)) {
                 return woodlotInit(req, res, next, config);
             } else {
                 next();
