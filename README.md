@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/adpushup/woodlot/master/icon.png" width="250" height="auto" alt="woodlot icon"/>
 
-# woodlot [![npm version](https://badge.fury.io/js/woodlot.svg)](https://badge.fury.io/js/woodlot) [![NPM Downloads](https://img.shields.io/npm/dm/woodlot.svg?style=flat-square)](https://www.npmjs.com/package/woodlot)
+# woodlot [![npm version](https://badge.fury.io/js/woodlot.svg)](https://badge.fury.io/js/woodlot) [![NPM Downloads](https://img.shields.io/npm/dm/woodlot.svg?style=flat-square)](https://www.npmjs.com/package/woodlot) <span class="badge-patreon"><a href="https://www.patreon.com/arunmichaeldsouza" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-blue.svg" alt="Patreon donate button" /></a></span>
 
 An all-in-one JSON logging utility that supports ExpressJS HTTP logging, custom logging, provides multi-format output and an easy to use events API.
 
