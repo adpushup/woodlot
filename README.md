@@ -409,6 +409,12 @@ woodlotEvents.on('err', function(log) {
 | [<img src="https://avatars3.githubusercontent.com/u/4924614" width="100px;"/><br /><sub><b>Arun Michael Dsouza</b></sub>](https://github.com/ArunMichaelDsouza)<br />| [<img src="https://avatars2.githubusercontent.com/u/10044846" width="100px;"/><br /><sub><b>Dhiraj Singh</b></sub>](https://github.com/DhirajAdPushup)<br />| [<img src="https://avatars1.githubusercontent.com/u/6550699" width="100px;"/><br /><sub><b>Chen Li</b></sub>](https://github.com/sirius226)<br />|
 | :---: | :---: | :---: |
 
+## Support
+
+If you'd like to help support the development and maintenance of the project, please consider backing me on Patreon
+
+[<img src="https://arunmichaeldsouza.com/img/patreon.png" width="180px;"/>](https://www.patreon.com/bePatron?u=8841116)
+
 ## License
 
 MIT License
