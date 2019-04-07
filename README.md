@@ -413,7 +413,7 @@ woodlotEvents.on('err', function(log) {
 
 ## Support
 
-If you'd like to help support the development and maintenance of the project, please consider backing me on Patreon
+If you'd like to help support the development of the project, please consider backing me on Patreon -
 
 [<img src="https://arunmichaeldsouza.com/img/patreon.png" width="180px;"/>](https://www.patreon.com/bePatron?u=8841116)
 
