@@ -4,25 +4,25 @@
 
 An all-in-one JSON logging utility that supports ExpressJS HTTP logging, custom logging, provides multi-format output and an easy to use events API.
 
-> * Works as an HTTP logging middleware with ``ExpressJS``
-> * Support for custom logging with different logging levels
-> * Provides log output in ``json`` format with request body/query params, headers and cookies
-> * Support for Apache ``common`` and ``combined`` log formats as output
-> * Multiple file stream support for log aggregation
-> * Simple to use events API
-> * Requires node >= ``0.10``
+> - Works as an HTTP logging middleware with `ExpressJS`
+> - Support for custom logging with different logging levels
+> - Provides log output in `json` format with request body/query params, headers and cookies
+> - Support for Apache `common` and `combined` log formats as output
+> - Multiple file stream support for log aggregation
+> - Simple to use events API
+> - Requires node >= `0.10`
 
 <br/>
 
 ## Installation
 
-#### Using ``npm``
+#### Using `npm`
 
 ```javascript
 npm install woodlot --save
 ```
 
-#### Using ``yarn``
+#### Using `yarn`
 
 ```javascript
 yarn add woodlot
@@ -34,7 +34,7 @@ yarn add woodlot
 
 ### As an ExpressJS middleware
 
-The woodlot ``middlewareLogger`` can be hooked into the existing ``ExpressJS`` middleware chain and can be used to log all ``HTTP`` requests.
+The woodlot `middlewareLogger` can be hooked into the existing `ExpressJS` middleware chain and can be used to log all `HTTP` requests.
 
 Example -
 
@@ -43,45 +43,52 @@ var express = require('express');
 var app = express();
 var woodlot = require('woodlot').middlewareLogger;
 
-app.use(woodlot({
-    streams: ['./logs/app.log'],
-    stdout: false,
-    routes: {
-        whitelist: ['/api', '/dashboard'],
-        strictChecking: false
-    },
-    userAnalytics: {
-        platform: true,
-        country: true
-    },
-    format: {
-        type: 'json',
-        options: {
-            cookies: true,
-            headers: true,
-            spacing: 4,
-            separator: '\n'
-        }
-    }
-}));
+app.use(
+	woodlot({
+		streams: ['./logs/app.log'],
+		stdout: false,
+		routes: {
+			whitelist: ['/api', '/dashboard'],
+			strictChecking: false
+		},
+		userAnalytics: {
+			platform: true,
+			country: true
+		},
+		format: {
+			type: 'json',
+			options: {
+				cookies: true,
+				headers: true,
+				spacing: 4,
+				separator: '\n'
+			}
+		}
+	})
+);
 ```
 
 #### Options
 
-#### ``streams {array} | required``
+#### `streams {array} | required`
+
 This is a required option that specifies the file stream endpoints where the generated logs will be saved. You can specify multiple streams using this option.
 
-#### ``stdout {boolean} | Default: true``
-It specifies whether the generated log entry should be logged to the standard output stream i.e. ``process.stdout`` or not.
+#### `stdout {boolean} | Default: true`
 
-#### ``routes {object}``
-This option is used with the woodlot ``middlewareLogger``. It specifies all the routes (with checking mode) for which logging is to be enabled. By default, log entry is generated for all the routes.
+It specifies whether the generated log entry should be logged to the standard output stream i.e. `process.stdout` or not.
 
-##### ``whitelist {array}``
-This option is used with the ``routes`` option to specify the route whitelist.
+#### `routes {object}`
 
-##### ``strictChecking {boolean} | Default: false``
-This option is used with the ``routes`` option to specify the checking mode for the route whitelist.
+This option is used with the woodlot `middlewareLogger`. It specifies all the routes (with checking mode) for which logging is to be enabled. By default, log entry is generated for all the routes.
+
+##### `whitelist {array}`
+
+This option is used with the `routes` option to specify the route whitelist.
+
+##### `strictChecking {boolean} | Default: false`
+
+This option is used with the `routes` option to specify the checking mode for the route whitelist.
 
 ```javascript
 routes: {
@@ -90,17 +97,20 @@ routes: {
 }
 ```
 
-For the above example, setting it to ``false`` will enable logging for all routes that have ``api`` in them. Example - ``/api``, ``/api/getUser``, ``/api/getUser/all``, ``/userapi`` etc.
+For the above example, setting it to `false` will enable logging for all routes that have `api` in them. Example - `/api`, `/api/getUser`, `/api/getUser/all`, `/userapi` etc.
 
-Whereas, setting it to ``true`` will only enable logging for the ``/api`` route.
+Whereas, setting it to `true` will only enable logging for the `/api` route.
 
-#### ``userAnalytics {object}``
+#### `userAnalytics {object}`
+
 Use this option to add user details to your logs.
 
-##### ``platform {boolean} | Default: false``
+##### `platform {boolean} | Default: false`
+
 Use this option with `userAnalytics`, to specify whether to include user `platform` info in the logs or not i.e. `browser`, `browserVersion`, `os`, and `osVersion`.
 
-##### ``country {boolean} | Default: false``
+##### `country {boolean} | Default: false`
+
 Use this option with `userAnalytics`, to specify whether to include user `country` info in the logs or not i.e. `name` and `isoCode`.
 
 The `userAnalytics` option will add the following info to your logs -
@@ -118,11 +128,13 @@ The `userAnalytics` option will add the following info to your logs -
 }
 ```
 
-#### ``format {object}``
+#### `format {object}`
+
 This option sets the log output format and other settings related to that particular format.
 
-##### ``type {string} | Default: 'json'``
-The default output format is ``json``. The ``middlewareLogger`` supports two more formats - [common](http://httpd.apache.org/docs/current/logs.html#common) and [combined](http://httpd.apache.org/docs/current/logs.html#combined), which are Apache's access log formats.
+##### `type {string} | Default: 'json'`
+
+The default output format is `json`. The `middlewareLogger` supports two more formats - [common](http://httpd.apache.org/docs/current/logs.html#common) and [combined](http://httpd.apache.org/docs/current/logs.html#combined), which are Apache's access log formats.
 
 The generated output log for each format is as follows -
 
@@ -166,7 +178,7 @@ The generated output log for each format is as follows -
 }
 ```
 
-> ``json`` format supports logging of ``body`` params and ``cookies``. If you wish to log them, please make sure to enable the ``bodyParser`` and ``cookieParser`` middlewares before woodlot.
+> `json` format supports logging of `body` params and `cookies`. If you wish to log them, please make sure to enable the `bodyParser` and `cookieParser` middlewares before woodlot.
 
 ##### common
 
@@ -180,34 +192,39 @@ The generated output log for each format is as follows -
 127.0.01 - - [23/Apr/2017:20:48:10 +0000] "GET /api HTTP/1.1" 200 4 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
 ```
 
-> The timestamp generated in all logs is in ``ISO`` format.
+> The timestamp generated in all logs is in `ISO` format.
 
-#### ``options {object}``
+#### `options {object}`
 
-##### ``cookies {boolean} | Default: false``
-This option is to be used with the ``json`` format. It specifies whether you want to log request ``cookies`` or not.
+##### `cookies {boolean} | Default: false`
 
-> Please make sure that the ``cookieParser`` middleware is enabled before woodlot, if this option is to be used.
+This option is to be used with the `json` format. It specifies whether you want to log request `cookies` or not.
 
-##### ``headers {boolean} | Default: true``
-This option is to be used with the ``json`` format. It specifies whether you want to log request ``headers`` or not.
+> Please make sure that the `cookieParser` middleware is enabled before woodlot, if this option is to be used.
 
-##### ``compact {boolean} | Default: false``
-This option is to be used with the ``json`` format. It specifies whether you want to log json as one line compact string.
+##### `headers {boolean} | Default: true`
 
-**NOTE** ``spacing`` option will be ignored if this option is set to true.
+This option is to be used with the `json` format. It specifies whether you want to log request `headers` or not.
 
-##### ``spacing {string|number} | Default: \t``
-This option is to be used with the ``json`` format. It specifies the indentation for the generated log entry. You can specify a tab ``\t`` or numeric values ``4``, ``8`` for spaces.
+##### `compact {boolean} | Default: false`
 
-##### ``separator {string} | Default: \n``
-This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character ``\n``, a ``whitespace`` or any other valid character.
+This option is to be used with the `json` format. It specifies whether you want to log json as one line compact string.
+
+**NOTE** `spacing` option will be ignored if this option is set to true.
+
+##### `spacing {string|number} | Default: \t`
+
+This option is to be used with the `json` format. It specifies the indentation for the generated log entry. You can specify a tab `\t` or numeric values `4`, `8` for spaces.
+
+##### `separator {string} | Default: \n`
+
+This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character `\n`, a `whitespace` or any other valid character.
 
 <br/>
 
 ### Custom logging
 
-The woodlot ``customLogger`` can be used to perform custom logging with different logging levels.
+The woodlot `customLogger` can be used to perform custom logging with different logging levels.
 
 Example -
 
@@ -217,59 +234,67 @@ var app = express();
 var woodlotCustomLogger = require('woodlot').customLogger;
 
 var woodlot = new woodlotCustomLogger({
-    streams: ['./logs/custom.log'],
-    stdout: false,
-    format: {
-        type: 'json',
-        options: {
-            spacing: 4,
-            separator: '\n'
-        }
-    }
+	streams: ['./logs/custom.log'],
+	stdout: false,
+	format: {
+		type: 'json',
+		options: {
+			spacing: 4,
+			separator: '\n'
+		}
+	}
 });
 
-app.get('/', function(req, res) {
-    var id = 4533;
-    woodlot.info('User id ' + id + ' accessed');
-    return res.status(200).send({ userId: id });
+app.get('/', function (req, res) {
+	var id = 4533;
+	woodlot.info('User id ' + id + ' accessed');
+	return res.status(200).send({ userId: id });
 });
 ```
 
 #### Log levels
 
 ##### info
+
 ```javascript
 woodlot.info('Data sent successfully');
 ```
 
 ##### debug
+
 ```javascript
 woodlot.debug('Debugging main function');
 ```
 
 ##### warn
+
 ```javascript
 woodlot.warn('User Id is required');
 ```
 
 ##### err
+
 ```javascript
 woodlot.err('Server error occurred');
 ```
 
 #### Options
 
-#### ``streams {array} | required``
+#### `streams {array} | required`
+
 See [here](https://github.com/adpushup/woodlot#streams-array--required).
 
-#### ``stdout {boolean} | Default: true``
+#### `stdout {boolean} | Default: true`
+
 See [here](https://github.com/adpushup/woodlot#stdout-boolean--default-true).
 
-#### ``format {object}``
+#### `format {object}`
+
 See [here](https://github.com/adpushup/woodlot#format-object).
 
-##### ``type {string} | Default: 'json'``
-The default output format is ``json``. The ``customLogger`` supports one more format - ``text``.
+##### `type {string} | Default: 'json'`
+
+The default output format is `json`. The `customLogger` supports one more format - `text`.
 
 The generated output log for each format is as follows -
 
@@ -289,18 +314,21 @@ The generated output log for each format is as follows -
 INFO [23/Apr/2017:17:02:33 +0000]: "Data sent successfully"
 ```
 
-#### ``options {object}``
+#### `options {object}`
 
-##### ``compact {boolean} | Default: false``
-This option is to be used with the ``json`` format. It specifies whether you want to log json as one line compact string.
+##### `compact {boolean} | Default: false`
 
-**NOTE** ``spacing`` option will be ignored if this option is set to true.
+This option is to be used with the `json` format. It specifies whether you want to log json as one line compact string.
 
-##### ``spacing {string|number} | Default: \t``
-This option is to be used with the ``json`` format. It specifies the indentation for the generated log entry. You can specify a tab ``\t`` or numeric values ``4``, ``8`` for spaces.
+**NOTE** `spacing` option will be ignored if this option is set to true.
 
-##### ``separator {string} | Default: \n``
-This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character ``\n``, a ``whitespace`` or any other valid character.
+##### `spacing {string|number} | Default: \t`
+
+This option is to be used with the `json` format. It specifies the indentation for the generated log entry. You can specify a tab `\t` or numeric values `4`, `8` for spaces.
+
+##### `separator {string} | Default: \n`
+
+This option can be used with any of the supported formats. It specfies the separator between two log entires. You can add a newline character `\n`, a `whitespace` or any other valid character.
 
 <br/>
 
@@ -313,8 +341,8 @@ Example -
 ```javascript
 var woodlotEvents = require('woodlot').events;
 
-woodlotEvents.on('reqLog', function(log) {
-     console.log('New log generated');
+woodlotEvents.on('reqLog', function (log) {
+	console.log('New log generated');
 });
 ```
 
@@ -322,83 +350,83 @@ The returned log entry from each event will be of the same format as the one def
 
 ### middlewareLogger events
 
-#### ``reqLog``
+#### `reqLog`
 
 This event is fired whenever a log entry is generated.
 
 ```javascript
-woodlotEvents.on('reqLog', function(log) {
-    console.log('The following log entry was added - \n' + log);
+woodlotEvents.on('reqLog', function (log) {
+	console.log('The following log entry was added - \n' + log);
 });
 ```
 
-#### ``:statusCode``
+#### `:statusCode`
 
 This event is fired whenever a specific status code is returned from the request.
 
 ```javascript
-woodlotEvents.on('200', function(log) {
-    console.log('Success!')
+woodlotEvents.on('200', function (log) {
+	console.log('Success!');
 });
 ```
 
 ```javascript
-woodlotEvents.on('403', function(log) {
-    console.log('Request forbidden!')
+woodlotEvents.on('403', function (log) {
+	console.log('Request forbidden!');
 });
 ```
 
-### ``reqErr``
+### `reqErr`
 
 This event is fired whenever an error is returned from the request.
 
-All requests returning a status code of ``>=400`` are considered to be errored. Please refer to the HTTP status codes [guide](http://www.restapitutorial.com/httpstatuscodes.html) for more info.
+All requests returning a status code of `>=400` are considered to be errored. Please refer to the HTTP status codes [guide](http://www.restapitutorial.com/httpstatuscodes.html) for more info.
 
 ```javascript
-woodlotEvents.on('reqErr', function(log) {
-    console.log('Errored!')
+woodlotEvents.on('reqErr', function (log) {
+	console.log('Errored!');
 });
 ```
 
 ### customLogger events
 
-#### ``info``
+#### `info`
 
-This event is fired whenever an ``info`` level log entry is generated.
+This event is fired whenever an `info` level log entry is generated.
 
 ```javascript
-woodlotEvents.on('info', function(log) {
-    console.log('Info log - ' + log);
+woodlotEvents.on('info', function (log) {
+	console.log('Info log - ' + log);
 });
 ```
 
-#### ``debug``
+#### `debug`
 
-This event is fired whenever a ``debug`` level log entry is generated.
+This event is fired whenever a `debug` level log entry is generated.
 
 ```javascript
-woodlotEvents.on('debug', function(log) {
-    console.log('Debug log - ' + log);
+woodlotEvents.on('debug', function (log) {
+	console.log('Debug log - ' + log);
 });
 ```
 
-#### ``warn``
+#### `warn`
 
-This event is fired whenever a ``warn`` level log entry is generated.
+This event is fired whenever a `warn` level log entry is generated.
 
 ```javascript
-woodlotEvents.on('warn', function(log) {
-    console.log('Warn log - ' + log);
+woodlotEvents.on('warn', function (log) {
+	console.log('Warn log - ' + log);
 });
 ```
 
-#### ``err``
+#### `err`
 
-This event is fired whenever an ``err`` level log entry is generated.
+This event is fired whenever an `err` level log entry is generated.
 
 ```javascript
-woodlotEvents.on('err', function(log) {
-    console.log('Error log - ' + log);
+woodlotEvents.on('err', function (log) {
+	console.log('Error log - ' + log);
 });
 ```
 
@@ -406,16 +434,8 @@ woodlotEvents.on('err', function(log) {
 
 ## Contributors
 
-| [<img src="https://avatars3.githubusercontent.com/u/4924614" width="100px;"/><br /><sub><b>Arun Michael Dsouza</b></sub>](https://github.com/ArunMichaelDsouza)<br />| [<img src="https://avatars2.githubusercontent.com/u/10044846" width="100px;"/><br /><sub><b>Dhiraj Singh</b></sub>](https://github.com/DhirajAdPushup)<br />| [<img src="https://avatars1.githubusercontent.com/u/6550699" width="100px;"/><br /><sub><b>Chen Li</b></sub>](https://github.com/sirius226)<br />|
-| :---: | :---: | :---: |
-
-<br/>
-
-## Support
-
-If you'd like to help support the development of the project, please consider backing me on Patreon -
-
-[<img src="https://arunmichaeldsouza.com/img/patreon.png" width="180px;"/>](https://www.patreon.com/bePatron?u=8841116)
+| [<img src="https://avatars3.githubusercontent.com/u/4924614" width="100px;"/><br /><sub><b>Arun Michael Dsouza</b></sub>](https://github.com/ArunMichaelDsouza)<br /> | [<img src="https://avatars2.githubusercontent.com/u/10044846" width="100px;"/><br /><sub><b>Dhiraj Singh</b></sub>](https://github.com/DhirajAdPushup)<br /> | [<img src="https://avatars1.githubusercontent.com/u/6550699" width="100px;"/><br /><sub><b>Chen Li</b></sub>](https://github.com/sirius226)<br /> |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
 
 <br/>
 
@@ -442,44 +462,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
