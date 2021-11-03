@@ -2,8 +2,6 @@
 
 # woodlot [![npm version](https://badge.fury.io/js/woodlot.svg)](https://badge.fury.io/js/woodlot) [![NPM Downloads](https://img.shields.io/npm/dm/woodlot.svg?style=flat-square)](https://www.npmjs.com/package/woodlot) <span class="badge-patreon"><a href="https://www.patreon.com/arunmichaeldsouza" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-blue.svg" alt="Patreon donate button" /></a></span>
 
-**WARNING:** This is my personal fork of woodlot and NOT the original.  This fork (1) updates the dependencies, (2) makes the steams optional if console is enabled, and (3) adds typescript definitions.  The badges above point to the original and not this fork.
-
 An all-in-one JSON logging utility that supports ExpressJS HTTP logging, custom logging, provides multi-format output and an easy to use events API.
 
 > * Works as an HTTP logging middleware with ``ExpressJS``
