@@ -29,7 +29,7 @@ function middlewareLogger(config) {
           }
       }
 
-      config.streams ??= [];
+      config.streams = [];
     }
 
     // Standard middleware function signature 

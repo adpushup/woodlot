@@ -70,9 +70,9 @@ app.use(
 
 #### Options
 
-#### `streams {array} | required`
+#### `streams {array}`
 
-This is a required option that specifies the file stream endpoints where the generated logs will be saved. You can specify multiple streams using this option.
+This is an option that specifies the file stream endpoints where the generated logs will be saved. You can specify multiple streams using this option.
 
 #### `stdout {boolean} | Default: true`
 
@@ -280,9 +280,9 @@ woodlot.err('Server error occurred');
 
 #### Options
 
-#### `streams {array} | required`
+#### `streams {array}`
 
-See [here](https://github.com/adpushup/woodlot#streams-array--required).
+See [here](https://github.com/adpushup/woodlot#streams-array).
 
 #### `stdout {boolean} | Default: true`
 
