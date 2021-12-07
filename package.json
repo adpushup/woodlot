@@ -1,8 +1,9 @@
 {
   "name": "woodlot",
-  "version": "3.2.8",
+  "version": "3.3.0",
   "description": "An all-in-one JSON logging utility that supports ExpressJS HTTP logging, custom logging, provides multi-format output and an easy to use events API.",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,10 +25,13 @@
   ],
   "homepage": "https://github.com/adpushup/woodlot#readme",
   "dependencies": {
-    "basic-auth": "^1.1.0",
-    "bluebird": "^3.5.0",
-    "maxmind": "^2.2.0",
-    "mkdirp": "^0.5.1",
-    "ua-parser-js": "^0.7.12"
+    "basic-auth": "^2.0.1",
+    "bluebird": "^3.7.2",
+    "maxmind": "^4.3.2",
+    "mkdirp": "^1.0.4",
+    "ua-parser-js": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13"
   }
 }

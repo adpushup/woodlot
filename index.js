@@ -12,21 +12,25 @@ var utils = require('./lib/utils');
 // Woodlot logger middleware entry
 function middlewareLogger(config) {
 
-    // Check logger config for requried params
-    if (!config || !config.streams || !config.streams.length) {
-        // Log config warning to stdout 
-        utils.logConfigWarning();
-
-        // And continue express middleware chain execution
-        return function (req, res, next) {
-            next();
-        }
-    }
-
     // Sort config params for middleware execution
     var routeWhitelist = (config.routes && config.routes.whitelist) ? config.routes.whitelist : [];
     config.logToConsole = ('stdout' in config) ? config.stdout : true;
     config.logHeaders = (config.format && 'options' in config.format && 'headers' in config.format.options) ? config.format.options.headers : true;
+
+    // Check logger config for requried params
+    if (!config || !config.streams || !config.streams.length) {
+      if (!config.logToConsole) {
+          // Log config warning to stdout 
+          utils.logConfigWarning();
+
+          // And continue express middleware chain execution
+          return function (req, res, next) {
+              next();
+          }
+      }
+
+      config.streams ??= [];
+    }
 
     // Standard middleware function signature 
     return function (req, res, next) {
