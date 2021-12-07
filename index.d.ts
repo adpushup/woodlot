@@ -26,6 +26,7 @@ export interface IMiddlewareOptions {
 }
 
 export interface ICustomOptions {
+  logToConsole: boolean;
   streams?: Writable[];
   stdout?: boolean;
   format?: {
@@ -40,7 +41,6 @@ export interface ICustomOptions {
 
 export interface ICustomLogger {  
   config: ICustomOptions;
-  logToConsole: boolean;
   info: (message: string) => void;
   debug: (message: string) => void;
   warn: (message: string) => void;
